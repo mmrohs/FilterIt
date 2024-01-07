@@ -1,0 +1,25 @@
+{
+  "extensionName":
+  {
+    "message": "FilterIt",
+    "description": "Name dieser Erweiterung"
+  },
+
+  "extensionDescription":
+  {
+    "message": "Erweiterung für Mozilla Firefox die es einem erlaubt, Themen und Personen aus Webseiten heraus zu filtern",
+    "description": "Beschreibung dieser Erweiterung"
+  },
+
+  "menuItemAddToFilterList":
+  {
+    "message": "Ausdruck '%s' zur Filterliste hinzufügen",
+    "description": "Fügt den selektierten Ausdruck zur internen Filterliste hinzu, sodass der Ausdruck beim nächsten Laden einer Webseite gefiltert wird"
+  },
+
+  "menuItemClearFilterList":
+  {
+    "message": "Filterliste leeren",
+    "description": "Entfernt alle Einträge aus der Filterliste."
+  }
+}

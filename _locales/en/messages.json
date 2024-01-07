@@ -1,0 +1,25 @@
+{
+  "extensionName":
+  {
+    "message": "FilterIt",
+    "description": "Name of this extension"
+  },
+
+  "extensionDescription":
+  {
+    "message": "Add-on for Mozilla Firefox that let's you filter people and topics from webpages",
+    "description": "Description of the add-on."
+  },
+
+  "menuItemAddToFilterList":
+  {
+    "message": "Add '%s' to the filter list",
+    "description": "Adds the term to the internal filter list, so the extension can filter it when loading a webpage."
+  },
+
+  "menuItemClearFilterList":
+  {
+    "message": "Clear filter list",
+    "description": "Removes all items from the filter list."
+  }
+}
