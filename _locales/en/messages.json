@@ -17,6 +17,12 @@
     "description": "Adds the term to the internal filter list, so the extension can filter it when loading a webpage."
   },
 
+  "menuItemShowFilterList":
+  {
+    "message": "Show filter list",
+    "description": "Outputs all items in the filter list to the browser console"
+  },
+
   "menuItemClearFilterList":
   {
     "message": "Clear filter list",

@@ -17,6 +17,12 @@
     "description": "Fügt den selektierten Ausdruck zur internen Filterliste hinzu, sodass der Ausdruck beim nächsten Laden einer Webseite gefiltert wird"
   },
 
+  "menuItemShowFilterList":
+  {
+    "message": "Filterliste anzeigen",
+    "description": "Alle Einträge der Filterliste in der Konsole anzeigen"
+  },
+
   "menuItemClearFilterList":
   {
     "message": "Filterliste leeren",

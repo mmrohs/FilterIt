@@ -25,7 +25,7 @@ function main()
 
 	while (node = nodeIterator.nextNode()) 
 	{
-		nodeData = node.data;
+		nodeData = node.data.trim();
 		tagName = node.parentElement.tagName.toLowerCase();
 		if (NodeCanBeSkipped(nodeData, tagName))
 			continue;
