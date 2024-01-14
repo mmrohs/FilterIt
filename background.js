@@ -51,14 +51,6 @@ browser.menus.create(
 );
 
 /**
- * Definition of the filter list storage object
- */
-/*let FilterList = 
-{
-    items: terms = []
-};*/
-
-/**
  * Gets called if the user clicks on the "add-to-filter-list" button 
  */
 function OnAddToFilterList(selectionText)
@@ -74,10 +66,7 @@ function OnAddToFilterList(selectionText)
         {
             if (item != null && item.storagelist != null)
             {
-                filterlist = item.storagelist; 
-                console.log("1. element: " + filterlist[0]);
-                console.log("2. element: " + filterlist[1]);
-                console.log("3. element: " + filterlist[2]);
+                filterlist = item.storagelist;
             }
         },
         function(e) { console.error(e); return; }
@@ -86,7 +75,6 @@ function OnAddToFilterList(selectionText)
         {
             // Add selected term to filter list
             filterlist.push(selectionText);
-            filterlist.push("Baba");
             console.log("Added '" + selectionText + "' to the FilterIt filter list");
         },
         function(e) { console.error(e); return; }
