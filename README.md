@@ -2,7 +2,7 @@ Product name: FilterIt
 Author: M. Mrohs (mmrohs at protonmail.com)
 Version: 1.0.3 (16.01.2024)
 Licence: Mozilla Public License Version 2.0
-GutHub: https://github.com/mmrohs/FilterIt
+GitHub: https://github.com/mmrohs/FilterIt
 
 
 FilterIt is a tiny add-on for the web browser Mozilla Firefox (Version 103 and later)
