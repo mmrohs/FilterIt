@@ -5,11 +5,11 @@ function onCreated()
 {
     if (browser.runtime.lastError)
     {
-        console.log("Error at creating menu: " + browser.runtime.lastError);
+        console.log("FilterIt - Error at creating menu: " + browser.runtime.lastError);
     } 
     else
     {
-        console.log("Menu created successfully");
+        console.log("FilterIt - Menu created successfully");
     }
 }
 
@@ -27,8 +27,10 @@ browser.menus.create(
 
 
 /**
- * Creates the context menu item for showing all the items in the filter list
+ * Creates the context menu item for showing all the items inside the filter list
+ * +++ ONLY FOR DEBUGGING PURPOSES +++ 
  */
+/*
 browser.menus.create(
     {
         id: "show-filter-list",
@@ -36,7 +38,7 @@ browser.menus.create(
         contexts: ["selection"]
     }, 
     onCreated
-);
+);*/
 
 /**
  * Creates the context menu item for clearing the filter list
@@ -51,15 +53,15 @@ browser.menus.create(
 );
 
 /**
+ * Adds a new item to the filter list
  * Gets called if the user clicks on the "add-to-filter-list" button 
  */
 function OnAddToFilterList(selectionText)
 {
-    // Remove line breaks
-    selectionText = selectionText.replace(/\n|\r/g, "");
+    var oldLength = 0;
+    var filterlist = [];
 
     // Try to retrieve the array from storage
-    var filterlist = [];
     let results = browser.storage.local.get({storagelist: []});
     results.then(
         function(item) 
@@ -67,26 +69,37 @@ function OnAddToFilterList(selectionText)
             if (item != null && item.storagelist != null)
             {
                 filterlist = item.storagelist;
+                oldLength = filterlist.length;
             }
         },
         function(e) { console.error(e); return; }
     ).then(
         function() 
         {
-            // Add selected term to filter list
-            filterlist.push(selectionText);
-            console.log("Added '" + selectionText + "' to the FilterIt filter list");
+            // Remove line breaks from the selected text
+            selectionText = selectionText.replace(/\n|\r/g, "");
+
+            // Adds the selected text to the filter list (unless it's already in there)
+            if (!filterlist.includes(selectionText))
+            {
+                filterlist.push(selectionText);
+                console.log("FilterIt - Added '" + selectionText + "' to the filter list");
+            }
+            else
+            {
+                console.log("FilterIt - Selected text '" + selectionText + "' already in the filter list");
+            }
         },
         function(e) { console.error(e); return; }
     ).then(
         function()
         {
-            // Save array in storage
-            if (filterlist != null)
+            // Save array to local storage
+            if (filterlist != null && filterlist.length > oldLength)
             {
                 let results = browser.storage.local.set({storagelist: filterlist});
                 results.then(
-                    function(item) { console.log("Saved FilterIt filter list to local storage"); },
+                    function(item) { console.log("FilterIt - Saved the filter list to local storage"); },
                     function(e) { console.error(e); return; }
                 );
             }
@@ -96,6 +109,7 @@ function OnAddToFilterList(selectionText)
 }
 
 /**
+ * Outputs all filter list items to the browser console
  * Gets called if the user clicks on the "show-filter-list" button 
  */
 function OnShowFilterList()
@@ -111,7 +125,7 @@ function OnShowFilterList()
             if (filterlist != null)
             {
                 filterlist.forEach(element => {
-                    console.log("FilterIt filter list element: " + element);
+                    console.log("FilterIt - filter list element: " + element);
                 });
             }
         },
@@ -120,13 +134,15 @@ function OnShowFilterList()
 }
 
 /**
+ * Clears the filter list
  * Gets called if the user clicks on the "clear-filter-list" button 
  */
 function OnClearFilterList()
 {
-    let results = browser.storage.local.remove({storagelist: []});
+    var filterlist = [];
+    let results = browser.storage.local.set({storagelist: filterlist});
     results.then(
-        function() { console.log("FilterIt filter list cleared"); },
+        function() { console.log("FilterIt - filter list cleared"); },
         function(e) { console.error(e); return; }
     );
 }
@@ -148,6 +164,6 @@ browser.menus.onClicked.addListener((info, tab) =>
             OnClearFilterList();
             break;
         default:
-            console.log(`Unknown menuItemId ${info.menuItemId}`);
+            console.log(`FilterIt - Unknown menuItemId ${info.menuItemId}`);
     }
 });

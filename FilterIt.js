@@ -16,12 +16,18 @@ main();
 async function main()
 {
 	console.time('FilterIt');
+	console.time('Time1');
 
 	let bOK = await LoadAndCheckFilterlist();
 	if (!bOK)
 		return;
 
+	console.timeEnd('Time1');
+	console.time('Time2');
+
 	await FilterDocument();
+
+	console.timeEnd('Time2');
 
 	// Show execution time in console
 	console.timeEnd('FilterIt');
