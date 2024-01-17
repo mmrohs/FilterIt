@@ -1,7 +1,7 @@
 "use strict";
 
 // Relevant tags for filtering
-const relevantTags = new Set(["div","li","span","p",,"b","i","h1","h2","h3","h4","h5","h6","em","a","td"]);
+const relevantTags = new Set(["div","li","span","p","b","i","h1","h2","h3","h4","h5","h6","em","a","td"]);
 
 // Filter terms specified by the user
 var filterlist = [];
@@ -16,18 +16,12 @@ main();
 async function main()
 {
 	console.time('FilterIt');
-	console.time('Time1');
 
 	let bOK = await LoadAndCheckFilterlist();
 	if (!bOK)
 		return;
 
-	console.timeEnd('Time1');
-	console.time('Time2');
-
 	await FilterDocument();
-
-	console.timeEnd('Time2');
 
 	// Show execution time in console
 	console.timeEnd('FilterIt');
@@ -92,20 +86,6 @@ async function GetFilterlist()
 }
 
 /**
- * Determines if a node can be skipped or not
- * @returns true if the node can be skipped
- */
-function NodeCanBeSkipped(nodeData, tagName)
-{
-	// minimum of text: 3 characters
-	if (nodeData.length <= 3)
-		return true;
-
-	// check if it's one of the relevant html tags
-	return !relevantTags.has(tagName);
-}
-
-/**
  * Applies the user defined filter to the website document
  */
 async function FilterDocument()
@@ -135,12 +115,58 @@ async function FilterDocument()
 			filter = filterlist[i].toLowerCase();
 			if (nodeData.search(filter) != -1)
 			{
-				// Replace the node text
-				node.data = "+++ filtered +++";
+					// +++ DEBUG +++
+					//console.log("node.tagName: " + node.tagName + ", node.data: " + node.data);
+					
+				// Replace the text in the node and all of its sibling notes 
+				FilterNoteAndSiblings(node)
 			}
 		}
 
 		// +++ DEBUG +++
-		// console.log("node.data: " + node.data);
+		//console.log("tagName: " + tagName + ", node.data: " + node.data);
 	}
-} 
+}
+
+/**
+ * Determines if a node can be skipped or not
+ * @returns true if the node can be skipped
+ */
+function NodeCanBeSkipped(nodeData, tagName)
+{
+	// minimum of text: 3 characters
+	if (nodeData.length <= 3)
+		return true;
+
+	// check if it's one of the relevant html tags
+	return !relevantTags.has(tagName);
+}
+
+/**
+ * Filters the note and all of its sibling notes (with the same parent note)
+ * The first note gets the '+++ filtered +++' text, the rest are cleared
+ */
+function FilterNoteAndSiblings(node)
+{
+	var parentNode = node.parentElement;
+
+	// +++ DEBUG +++
+	//console.log("parentNode.tagName: " + parentNode.tagName + ", parentNode.data: " + parentNode.data);
+	//console.log("parentNode.textContent: " + parentNode.textContent);
+
+	var i = 0;
+	for (var childNode of parentNode.childNodes)
+	{
+		// +++ DEBUG +++
+		//console.log("childNode.tagName: " + childNode.tagName + ", childNode.data: " + childNode.data);
+
+		if (i++ == 0)
+		{
+			childNode.data = "+++ filtered +++";
+		}
+		else
+		{
+			childNode.data = "";
+		}
+	}
+}
