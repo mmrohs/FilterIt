@@ -25,9 +25,20 @@ browser.menus.create(
     onCreated
 );
 
+/**
+ * Creates a separator
+ */
+browser.menus.create(
+    {
+      id: "separator-01",
+      type: "separator",
+      contexts: ["all"],
+    },
+    onCreated,
+);
 
 /**
- * Creates the context menu item for showing all the items inside the filter list
+ * Creates the context menu item for printing all the filter list items to the browser console
  * +++ ONLY FOR DEBUGGING PURPOSES +++ 
  */
 /*
@@ -47,7 +58,7 @@ browser.menus.create(
     {
         id: "clear-filter-list",
         title: browser.i18n.getMessage("menuItemClearFilterList"),
-        contexts: ["selection"]
+        contexts: ["all"]
     }, 
     onCreated
 );

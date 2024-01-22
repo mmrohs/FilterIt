@@ -1,6 +1,6 @@
 Product name: FilterIt 
 Author: M. Mrohs (mmrohs at protonmail.com)
-Version: 1.0.4 (17.01.2024)
+Version: 1.0.5 (22.01.2024)
 Licence: Mozilla Public License Version 2.0
 GitHub: https://github.com/mmrohs/FilterIt
 
@@ -12,19 +12,24 @@ FilterIt makes it possible to filter uninteresting topics and people from websit
 You simply have to add terms via context menu to an internal filter list and next time the browser loads a webpage it replaces all sentences containing one of those terms with a specific filter string.
 
 Important:
-If you know some JavaScript: Feel free helping me with the development of FilterIt!
+If you know some JavaScript: 
+Feel free helping me with the development of FilterIt!
 
 
-Ideas for the future
-- view of all the elements inside the filter list in a fancy window
-- import/export of filter lists
+Some ideas for the future
+- view of all the elements inside the filter list in a fancy new window
 - smarter filter algorithm (the current one is quite primitive)
 - new icon
-- configurable replacement string (default: '+++ filtered +++') 
 - configurable exceptions for websites
+- browser icon that shows how many elements have been filtered
+- import/export of filter lists
+- configurable replacement string (default: '+++ filtered +++') 
 
 
 Version History
+
+1.0.5.
+- the filter algorithm finally works like intended
 
 1.0.3
 - filter list can be cleared via the context menu
