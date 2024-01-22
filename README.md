@@ -6,10 +6,9 @@ GitHub: https://github.com/mmrohs/FilterIt
 
 
 FilterIt is a tiny add-on for the web browser Mozilla Firefox (Version 103 and later)
-It might also work on other browsers, but I haven't testet it yet.
 
 FilterIt makes it possible to filter uninteresting topics and people from websites.
-You simply have to add terms via context menu to an internal filter list and next time the browser loads a webpage it replaces all sentences containing one of those terms with a specific filter string.
+The user can simply add terms to an filter list via context menu and next time the browser loads a webpage it replaces all sections containing one of these terms with the text "+++ filtered +++".
 
 Important:
 If you know some JavaScript: 
@@ -21,6 +20,7 @@ Some ideas for the future
 - smarter filter algorithm (the current one is quite primitive)
 - new icon
 - configurable exceptions for websites
+- possibility to input filter terms without the context menu
 - browser icon that shows how many elements have been filtered
 - import/export of filter lists
 - configurable replacement string (default: '+++ filtered +++') 
