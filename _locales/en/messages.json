@@ -14,7 +14,7 @@
   "menuItemAddToFilterList":
   {
     "message": "Add '%s' to the filter list",
-    "description": "Adds the term to the internal filter list, so the extension can filter it when loading a webpage."
+    "description": "Adds the selected term to the internal filter list, so the extension can filter it when loading a webpage."
   },
 
   "menuItemShowFilterList":

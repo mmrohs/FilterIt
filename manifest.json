@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "__MSG_extensionName__",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"default_locale": "en",
 	"description": "__MSG_extensionDescription__",
 	
@@ -10,6 +10,15 @@
 		"48": "icons/FilterIt_48.png"
 	},
 	
+	"browser_specific_settings":
+	{
+		"gecko":
+		{
+			"id": "{d3304604-d798-4be0-8c7e-22ef7855f3f0}",
+			"strict_min_version": "105.0"
+		}
+	},
+	  
 	"content_scripts":
 	[{
 		"matches": ["<all_urls>"],
@@ -22,5 +31,5 @@
 		"scripts": ["background.js"]
 	},
 
-	"permissions": ["storage","contextMenus","menus","activeTab"]
+	"permissions": ["storage","menus","contextMenus","activeTab"]
 }
