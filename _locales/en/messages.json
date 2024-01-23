@@ -7,14 +7,14 @@
 
   "extensionDescription":
   {
-    "message": "Add-on for Mozilla Firefox that let's you filter people and topics from webpages",
+    "message": "Add-on for Mozilla Firefox that lets you filter people and topics from webpages",
     "description": "Description of the add-on."
   },
 
   "menuItemAddToFilterList":
   {
     "message": "Add '%s' to the filter list",
-    "description": "Adds the selected term to the internal filter list, so the extension can filter it when loading a webpage."
+    "description": "Adds the selected term to the filter list, so the extension can filter it when loading a webpage."
   },
 
   "menuItemShowFilterList":
