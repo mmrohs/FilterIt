@@ -8,7 +8,7 @@ GitHub: https://github.com/mmrohs/FilterIt
 FilterIt is a tiny add-on for the web browser Mozilla Firefox (Version 105 and later)
 
 FilterIt makes it possible to filter uninteresting topics and people from websites.
-The user can simply add terms to an filter list via context menu and next time the browser loads a webpage it replaces all sections containing one of these terms with the text "+++ filtered +++".
+The user can simply add terms to a filter list via context menu and next time the browser loads a webpage it replaces all sections containing one of these terms with the text "+++ filtered +++".
 
 Important:
 If you know some JavaScript: 
