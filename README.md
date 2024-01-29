@@ -1,11 +1,11 @@
-Product name: FilterIt 
-Author: M. Mrohs (mmrohs at protonmail.com)
-Version: 1.0.6 (23.01.2024)
-Licence: Mozilla Public License Version 2.0
-GitHub: https://github.com/mmrohs/FilterIt
+Product name: FilterIt  
+Author: M. Mrohs (mmrohs at protonmail.com)  
+Version: 1.0.7 (29.01.2024)  
+Licence: Mozilla Public License Version 2.0  
+GitHub: https://github.com/mmrohs/FilterIt  
 
 
-FilterIt is a tiny add-on for the web browser Mozilla Firefox (Version 105 and later)
+FilterIt is a tiny add-on for the web browser Mozilla Firefox (Version 105 and newer)
 
 FilterIt makes it possible to filter uninteresting topics and people from websites.
 The user can simply add terms to a filter list via context menu and next time the browser loads a webpage it replaces all sections containing one of these terms with the text "+++ filtered +++".
@@ -27,6 +27,9 @@ Some ideas for the future
 
 
 Version History
+
+1.0.7
+- fixed the Readme.md
 
 1.0.6
 - minor improvements
