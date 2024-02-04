@@ -17,6 +17,12 @@
     "description": "Fügt den selektierten Ausdruck zur internen Filterliste hinzu, sodass der Ausdruck beim nächsten Laden einer Webseite gefiltert wird"
   },
 
+  "menuItemMatch":
+  {
+    "message": "Nur ganze Wörter suchen",
+    "description": "Falls aktiviert, dann werden nur Treffer mit ganzen Wörtern beim Filtern beachtet"
+  },
+
   "menuItemShowFilterList":
   {
     "message": "Filterliste anzeigen",

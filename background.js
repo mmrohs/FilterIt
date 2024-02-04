@@ -38,6 +38,31 @@ browser.menus.create(
 );
 
 /**
+ * Creates the context menu item for matching only whole words
+ */
+browser.menus.create(
+    {
+        id: "check-match-wholewordonly",
+        type: "checkbox",
+        title: browser.i18n.getMessage("menuItemMatch"),
+        contexts: ["all"],
+        checked: true,
+    }, onCreated
+);
+
+/**
+ * Creates another separator
+ */
+browser.menus.create(
+    {
+      id: "separator-02",
+      type: "separator",
+      contexts: ["all"],
+    },
+    onCreated,
+);
+
+/**
  * Creates the context menu item for printing all the filter list items to the browser console
  * +++ ONLY FOR DEBUGGING PURPOSES +++ 
  */
@@ -46,7 +71,7 @@ browser.menus.create(
     {
         id: "show-filter-list",
         title: browser.i18n.getMessage("menuItemShowFilterList"),
-        contexts: ["selection"]
+        contexts: ["all"]
     }, 
     onCreated
 );*/
@@ -69,7 +94,6 @@ browser.menus.create(
  */
 function OnAddToFilterList(selectionText)
 {
-    var oldLength = 0;
     var filterlist = [];
 
     // Try to retrieve the array from storage
@@ -80,7 +104,6 @@ function OnAddToFilterList(selectionText)
             if (item != null && item.storagelist != null)
             {
                 filterlist = item.storagelist;
-                oldLength = filterlist.length;
             }
         },
         function(e) { console.error(e); return; }
@@ -89,6 +112,9 @@ function OnAddToFilterList(selectionText)
         {
             // Remove line breaks from the selected text
             selectionText = selectionText.replace(/\n|\r/g, "");
+
+            // Trim the selected text
+            selectionText = selectionText.trim();
 
             // Adds the selected text to the filter list (unless it's already in there)
             if (!filterlist.includes(selectionText))
@@ -106,7 +132,7 @@ function OnAddToFilterList(selectionText)
         function()
         {
             // Save array to local storage
-            if (filterlist != null && filterlist.length > oldLength)
+            if (filterlist != null)
             {
                 let results = browser.storage.local.set({storagelist: filterlist});
                 results.then(
@@ -114,6 +140,28 @@ function OnAddToFilterList(selectionText)
                     function(e) { console.error(e); return; }
                 );
             }
+        },
+        function(e) { console.error(e); return; }
+    )
+}
+
+/**
+ * Saves the option for matching only whole words into local storage
+ */
+function OnCheckMatchWholeWordOnly()
+{
+    // Try to retrieve the old option value from local storage
+    let results = browser.storage.local.get({"optionMatch": true});
+    results.then(
+        function(item) 
+        {
+            // Save inverted option value to local storage
+            var invOption = !item.optionMatch;
+            let results = browser.storage.local.set({"optionMatch": invOption});
+            results.then(
+                function(item) { console.log("FilterIt - Saved the matching option " + invOption + " to local storage"); },
+                function(e) { console.error(e); return; }
+            );
         },
         function(e) { console.error(e); return; }
     )
@@ -136,7 +184,7 @@ function OnShowFilterList()
             if (filterlist != null)
             {
                 filterlist.forEach(element => {
-                    console.log("FilterIt - filter list element: " + element);
+                    console.log("FilterIt - filter list element: \'" + element + "\'");
                 });
             }
         },
@@ -170,6 +218,9 @@ browser.menus.onClicked.addListener((info, tab) =>
             break;
         case "show-filter-list":
             OnShowFilterList();
+            break;
+        case "check-match-wholewordonly":
+            OnCheckMatchWholeWordOnly();
             break;
         case "clear-filter-list":
             OnClearFilterList();

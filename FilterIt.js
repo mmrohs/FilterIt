@@ -13,6 +13,10 @@ const formattingTags = new Set(["a","b","i","u"]);
 // Filter terms specified by the user
 var filterlist = [];
 
+// Filter only whole word matches?
+var bMatchWholeWordsOnly = true;
+
+
 /**
  * The main algorithm of this extension
  */
@@ -20,7 +24,7 @@ async function main()
 {
 	console.time('FilterIt');
 
-	let bOK = await LoadAndCheckFilterlist();
+	let bOK = await LoadSettings();
 	if (!bOK)
 		return;
 
@@ -31,30 +35,33 @@ async function main()
 }
 
 /**
- * Retrieves and checks the filter list from local storage
+ * Retrieves the filter list and other options from local storage
  */
-async function LoadAndCheckFilterlist()
+async function LoadSettings()
 {
 	// Try to retrieve the filter list from storage
-	let ret = await GetFilterlist();
+	let ret = await LoadFilterlist();
 	if (!ret)
 		return false;
+
+	await LoadOptions();
 
 	if (filterlist != null)
 	{
 		console.log("FilterIt - items in the filter list: " + filterlist.length);
 	}
 
-	// Check if the user chose set any filters yet
+	// Check if the user set any filters yet
 	return filterlist != null && filterlist.length > 0;
 }
 
 /**
- * Retrieves the filter list from local storage and copies the filtered terms to 'filterlist'
+ * Retrieves the filter list from local storage
  */
-async function GetFilterlist()
+async function LoadFilterlist()
 {
-	async function ReadFromStorage()
+	// gets called below
+	async function ReadFilterlistFromStorage()
 	{
 		return new Promise((resolve, reject) => 
 		{
@@ -76,7 +83,7 @@ async function GetFilterlist()
 		});
 	}
 
-	let storagelist = await ReadFromStorage();
+	let storagelist = await ReadFilterlistFromStorage();
 	if (storagelist != null && storagelist != undefined)
 	{
 		filterlist = storagelist;
@@ -86,6 +93,42 @@ async function GetFilterlist()
 	{
 		return false;
 	}
+}
+
+/**
+ * Retrieves the options from local storage
+ */
+async function LoadOptions()
+{
+	// gets called below
+	async function LoadMatchingOption()
+	{
+		return new Promise((resolve, reject) => 
+		{
+			let results = browser.storage.local.get({"optionMatch": true});
+			results.then(
+				function(item) 
+				{
+					if (item != null && item.optionMatch != null && item.optionMatch != undefined)
+					{
+						resolve(item.optionMatch);
+					}
+					else
+					{
+						reject();
+					}
+				},
+				function(e) { console.error(e); reject(); }
+			)
+		});
+	}
+
+	let optionMatch = await LoadMatchingOption();
+	if (optionMatch != null && optionMatch != undefined)
+	{
+		bMatchWholeWordsOnly = optionMatch;
+	}
+	return true;
 }
 
 /**
@@ -118,7 +161,7 @@ async function FilterDocument()
 			// +++ DEBUG +++
 			//console.log("node.tagName: " + node.tagName + ", node.data: " + node.data);
 			
-			// Find a sufficient parent node
+			// Find a suitable parent node
 			var parentNode = FindSuitableParentNode(node);
 
 			// Clear the text in all the sibling notes of this node
@@ -160,7 +203,18 @@ function NodeMatchesFilteredItems(nodeData)
 		filter = filterlist[i].toLowerCase();
 		if (nodeData.search(filter) != -1)
 		{
-			return true;
+			console.log("Simple Match: nodeData:" + nodeData + ", filter:" + filter);
+
+			//  if the whole word only option is active, then another check is necessary
+			if (bMatchWholeWordsOnly)
+			{
+				let regex = new RegExp("\\b" + filter + "\\b");
+				return regex.test(nodeData);
+			}
+			else
+			{
+				return true;
+			}
 		}
 	}
 	return false;

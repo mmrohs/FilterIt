@@ -1,8 +1,8 @@
 Product name: FilterIt  
 Author: M. Mrohs (mmrohs at protonmail.com)  
-Version: 1.0.7 (29.01.2024)  
+Version: 1.0.8 (04.02.2024)  
 Licence: Mozilla Public License Version 2.0  
-GitHub: https://github.com/mmrohs/FilterIt  
+Website: https://github.com/mmrohs/FilterIt  
 
 
 FilterIt is a tiny add-on for the web browser Mozilla Firefox (Version 105 and newer)
@@ -27,6 +27,10 @@ Some ideas for the future
 
 
 Version History
+
+1.0.8
+- new context menu option to filter whole word matches only (enabled on default)
+- minor improvements and bugfixes
 
 1.0.7
 - fixed the Readme.md

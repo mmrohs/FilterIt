@@ -17,6 +17,12 @@
     "description": "Adds the selected term to the filter list, so the extension can filter it when loading a webpage."
   },
 
+  "menuItemMatch":
+  {
+    "message": "Match whole words only",
+    "description": "If enabled only whole word matches will get filtered"
+  },
+
   "menuItemShowFilterList":
   {
     "message": "Show filter list",
